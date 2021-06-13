@@ -4,10 +4,13 @@ import schemas as _schemas
 import shutil as _shutil
 import database as _db
 import sqlalchemy.orm as _orm
+from  sqlalchemy.sql.expression import func, select
 import typing as _typing
 import os as _os
+from starlette.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+import random
 
 
 _models.Base.metadata.create_all(bind=_db.engine)
@@ -46,7 +49,41 @@ async def read_item(request: _fastapi.Request, db: _orm.Session = _fastapi.Depen
 
     return templates.TemplateResponse("templates-landing-page/main.html", {"request": request, "categories": categories, "popular": popular, "latest": latest})
 
-@app.get("/{category_id}/{film_id}")
+
+@app.get("/rand")
+async def rand(request: _fastapi.Request, db: _orm.Session = _fastapi.Depends(get_db)):
+    categories = db.query(_models.Category).all()
+    rand_cat = random.choice(categories)
+    films = db.query(_models.Film).filter(_models.Film.category_id == rand_cat.id).all()
+    print(films)
+    rand_film = random.choice(films)
+    print(rand_film.title)
+
+    r = RedirectResponse(url=f'/{rand_cat.id}/{rand_film.title}/', headers={'Authorization': "some_long_key"}) 
+
+    return r
+
+@app.get("/{category_id}/{film_name}", response_class=_fastapi.responses.HTMLResponse)
+async def rand(request: _fastapi.Request, category_id: int, film_name: str, db: _orm.Session = _fastapi.Depends(get_db)):
+    categories = db.query(_models.Category).all()
+
+    film = db.query(_models.Film).filter(_models.Film.title == film_name).first()
+
+    return templates.TemplateResponse("templates-film-page/film_page.html", {"request": request, "categories": categories, "film": film})
+
+
+
+@app.get("/{category_name}")
+async def create_film(category_name: str, db: _orm.Session = _fastapi.Depends(get_db)):
+    cat = db.query(_models.Category).filter(_models.Category.name == category_name).first()
+    if(cat == None):
+        return{"x": "X"}
+
+    cat_id = cat.id
+    print(cat_id)
+    films_list = db.query(_models.Film).filter(_models.Film.category_id == cat_id).all()
+    print(films_list[0].description)
+    return {"list": films_list[0].description}
 
 
 @app.get("/categories", tags=["kategorie"])
