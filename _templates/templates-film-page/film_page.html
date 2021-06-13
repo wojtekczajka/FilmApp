@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300;1,400;1,700&display=swap" rel="stylesheet">      
     <!-- STYLE -->
     <link href="{{ url_for('static', path='static-film-page/css/style.css') }}" rel="stylesheet">
-    <title>strona o filmie</title>
+    <title>{{ film.title }}</title>
   </head>
   <body style="font-family: 'Lato', sans-serif; font-weight: 400; font-size: large;">
     <main>
@@ -29,7 +29,7 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                             <img
-                                src="img/1.jpg"
+                                src="{{ url_for('data', path= img_href[0]) }}"
                                 class="d-block w-100 rounded mx-auto d-block"
                                 alt="..."
                                 style="border: solid wheat 5px;"
@@ -37,7 +37,7 @@
                             </div>
                             <div class="carousel-item">
                             <img
-                                src="img/2.jpg"
+                                src="{{ url_for('data', path= img_href[1]) }}"
                                 class="d-block w-100 rounded mx-auto d-block"
                                 alt="..."
                                 style="border: solid wheat 5px;"
@@ -45,7 +45,7 @@
                             </div>
                             <div class="carousel-item">
                             <img
-                                src="img/3.jpg"
+                                src="{{ url_for('data', path= img_href[2]) }}"
                                 class="d-block w-100 rounded mx-auto d-block"
                                 alt="..."
                                 style="border: solid wheat 5px;"
@@ -75,7 +75,21 @@
             <div class="col-md-6 col-lg-5 mt-3">
                 <div class="d-flex flex-row">
                         <div id="logo" class="p-2 col-lg-4 col-md-4 text-center" style="font-family: 'Pattaya', sans-serif;">
-                            <h1>LOGO</h1>
+                                <a href="/">
+                                    <div id="logo_outline">
+                                        <div id="left">
+                                            <div id="text_left">
+                                                <p id="left_p">Movie</p>
+                                            </div>
+                                        </div>
+                                        <div id="right">
+                                            <div id="text_right">
+                                                <p id="right_p">Center</p>
+                                            </div>
+                                        </div>
+                                        <div style="clear: both;"></div>
+                                    </div>
+                            </a>
                         </div>
                         <div class="dropdown show col-lg-4 col-md-4 text-center my-auto">
                             <a class="btn btn-secondary dropdown-toggle btn-block bg-dark" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,15 +97,8 @@
                             </a>
                             <div class="dropdown-menu my-auto" aria-labelledby="dropdownMenuLink">
                               {% for my_item in categories %}
-                              <a class="dropdown-item" href="{{ my_item.name }}">{{my_item.name}}</a>
+                              <a class="dropdown-item" href="/{{ my_item.name }}">{{my_item.name}}</a>
                               {% endfor %}
-                              <!-- <a class="dropdown-item" href="#">Filmy przygodowe</a>
-                              <a class="dropdown-item" href="#">Filmy romantyczne</a>
-                              <a class="dropdown-item" href="#">Filmy Retro</a>
-                              <a class="dropdown-item" href="#">Filmy Kryminalne</a>
-                              <a class="dropdown-item" href="#">Filmy Netflixowe</a>
-                              <a class="dropdown-item" href="#">Filmy klasyczne</a>
-                              <a class="dropdown-item" href="#">Filmy dla dzieci</a> -->
                             </div>
                         </div>
                         <div class="input-group rounded col-lg-4 col-md-4 text-center my-auto">
@@ -165,30 +172,30 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="card mb-2">
-                  <img class="card-img-top" src="img/bg.jpg"
+                  <img class="card-img-top" src="{{ url_for('data', path= '/' + actors[0].actor_img_url) }}"
                        alt="Card image cap">
                   <div class="card-body">
-                    <h4 class="card-title text-center">Bob Gunton</h4>
+                    <h4 class="card-title text-center">{{ actors[0].name }}</h4>
                   </div>
                 </div>
               </div>
     
               <div class="col-md-4 clearfix d-none d-md-block">
                 <div class="card mb-2">
-                  <img class="card-img-top" src="img/cb.jpg"
+                  <img class="card-img-top" src="{{ url_for('data', path= '/' + actors[1].actor_img_url) }}"
                        alt="Card image cap">
                   <div class="card-body">
-                    <h4 class="card-title text-center">Clancy Brown</h4>
+                    <h4 class="card-title text-center">{{ actors[1].name }}</h4>
                   </div>
                 </div>
               </div>
     
               <div class="col-md-4 clearfix d-none d-md-block">
                 <div class="card mb-2">
-                  <img class="card-img-top" src="img/mf.jpg"
+                  <img class="card-img-top" src="{{ url_for('data', path= '/' + actors[2].actor_img_url) }}"
                        alt="Card image cap">
                   <div class="card-body">
-                    <h4 class="card-title text-center">Morgan Freeman</h4>
+                    <h4 class="card-title text-center">{{ actors[2].name }}</h4>
                   </div>
                 </div>
               </div>
@@ -203,30 +210,30 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="card mb-2">
-                  <img class="card-img-top" src="img/mr.jpg"
+                  <img class="card-img-top" src="{{ url_for('data', path= '/' + actors[3].actor_img_url) }}"
                        alt="Card image cap">
                   <div class="card-body">
-                    <h4 class="card-title text-center">Mark Rolston</h4>
+                    <h4 class="card-title text-center">{{ actors[3].name }}</h4>
                   </div>
                 </div>
               </div>
     
               <div class="col-md-4 clearfix d-none d-md-block">
                 <div class="card mb-2">
-                  <img class="card-img-top" src="img/tr.jpg"
+                  <img class="card-img-top" src="{{ url_for('data', path= '/' + actors[4].actor_img_url) }}"
                        alt="Card image cap">
                   <div class="card-body">
-                    <h4 class="card-title text-center">Tim Robbins</h4>
+                    <h4 class="card-title text-center">{{ actors[4].name }}</h4>
                   </div>
                 </div>
               </div>
     
               <div class="col-md-4 clearfix d-none d-md-block">
                 <div class="card mb-2">
-                  <img class="card-img-top" src="img/ws.jpg"
+                  <img class="card-img-top" src="{{ url_for('data', path= '/' + actors[5].actor_img_url) }}"
                        alt="Card image cap">
                   <div class="card-body">
-                    <h4 class="card-title text-center">William Sadler</h4>
+                    <h4 class="card-title text-center">{{ actors[5].name }}</h4>
                   </div>
                 </div>
               </div>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{{ url_for('static', path='static-categories-page/css/mdb.min.css') }}" />
+    <!-- LOGO FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
+    <!-- MAIN FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300;1,400;1,700&display=swap" rel="stylesheet">      
+    <!-- STYLE -->
+    <link href="{{ url_for('static', path='static-categories-page/css/style.css') }}" rel="stylesheet">
+<!--    <link href="css/style.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+    <title>main page</title>
+    <body>
+        <main>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <button class="navbar-toggler bg-light btn-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <a class="navbar-brand mr-lg-4" href="/">
+                        <div id="logo_outline">
+                            <div id="left">
+                                <div id="text_left">
+                                    <p id="left_p">Movie</p>
+                                </div>
+                            </div>
+                            <div id="right">
+                                <div id="text_right">
+                                    <p id="right_p">Center</p>
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </a>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active mr-lg-4">
+                        <a class="nav-link" href="/rand">Wylosuj film</a>
+                        </li>
+                        <li class="nav-item active dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            KATEOGORIE
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for my_item in categories %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ my_item.name }}">{{ my_item.name }}</a>
+                            {% endfor %}
+                        </div>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                    </div>
+                </div>
+            </nav>
+
+            <ul class="list-group list-group-flush">
+                {% for film in film_list %}
+                <li class="list-group-item", style="font-size: xx-large;">
+                    <a href="{{ category_name }}/{{ film.title }}">{{ film.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+
+
+            <footer class="text-center text-lg-start text-muted mt-4 " 
+                    style="background-color: rgb(44,40,40);
+                    border-top: solid rgb(199, 193, 193) 4px;
+                    color: wheat;">
+                    <!-- Section: Social media -->
+                    <section
+                        class="d-flex justify-content-center text-center " style="margin-top: 55px;"
+                    >
+                    <div id="footer-element">
+                        <a href="#" class="me-5 text-reset">
+                        <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <div id="footer-element">
+                        <a href="#" class="me-5 link-white">O nas</a>
+                    </div>
+                    <div id="footer-element">
+                        <a href="#" class="me-5 link-white">Kontakt</a>
+                    </div>
+                    <div id="footer-element">
+                        <a href="#" class="me-5 link-white">Polityka</a>
+                    </div>
+                    </section>
+                    <!-- Section: Social media -->
+                    <!-- Copyright -->
+                    <div class="text-center p-4" id="copyright">
+                        © 2021 Copyright:
+                        <a class="text-reset fw-bold" href="#">Strona o filmach.com</a>
+                    </div>
+            <!-- Copyright -->
+            </footer>
+        </main>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <!-- MDB -->
+        <script type="text/javascript" src="{{ url_for('static', path='static-categories-page/js/mdb.min.js') }}"></script>
+    </body>
+</head>

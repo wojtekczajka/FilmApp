@@ -32,25 +32,34 @@ def get_db():
         db.close()
 
 
-@app.get("/", response_class=_fastapi.responses.HTMLResponse)
+@app.get("/", response_class=_fastapi.responses.HTMLResponse, tags=["landing-page"])
 async def read_item(request: _fastapi.Request, db: _orm.Session = _fastapi.Depends(get_db)):
     # TODO def funcja do pobierania kategorii
     categories = db.query(_models.Category).all()
 
     #TODO def funcja do popolarnych
     popular =  db.query(_models.Film).order_by(_models.Film.rating.desc()).limit(6)
+    pop_hrefs = []
+    latest_hrefs = []
     for x in popular:
         x.film_img_url = x.film_img_url.replace("data_stuff/", "")
+        title = db.query(_models.Category).filter(_models.Category.id == x.category_id).first()
+        pop_hrefs.append(title.name + "/" + x.title)
+
 
     # TODO def funcja do ostatnio dodanych
     latest = db.query(_models.Film).order_by(_models.Film.id.desc()).limit(6)
     for x in latest:
         x.film_img_url = x.film_img_url.replace("data_stuff/", "")
+        title = db.query(_models.Category).filter(_models.Category.id == x.category_id).first()
+        latest_hrefs.append(title.name + "/" + x.title)
 
-    return templates.TemplateResponse("templates-landing-page/main.html", {"request": request, "categories": categories, "popular": popular, "latest": latest})
+    return templates.TemplateResponse("templates-landing-page/main.html", {"request": request, "categories": categories,
+                                                                           "popular": popular, "pop_href": pop_hrefs,
+                                                                           "latest_href": latest_hrefs, "latest": latest})
 
 
-@app.get("/rand")
+@app.get("/rand", tags=["rand"])
 async def rand(request: _fastapi.Request, db: _orm.Session = _fastapi.Depends(get_db)):
     categories = db.query(_models.Category).all()
     rand_cat = random.choice(categories)
@@ -63,27 +72,46 @@ async def rand(request: _fastapi.Request, db: _orm.Session = _fastapi.Depends(ge
 
     return r
 
-@app.get("/{category_id}/{film_name}", response_class=_fastapi.responses.HTMLResponse)
-async def rand(request: _fastapi.Request, category_id: int, film_name: str, db: _orm.Session = _fastapi.Depends(get_db)):
+@app.get("/{category_name}/{film_name}", response_class=_fastapi.responses.HTMLResponse, tags = ["film-page"])
+async def rand(request: _fastapi.Request, category_name: str, film_name: str, db: _orm.Session = _fastapi.Depends(get_db)):
+    #TODO jakas funkcja
     categories = db.query(_models.Category).all()
 
     film = db.query(_models.Film).filter(_models.Film.title == film_name).first()
+    category = db.query(_models.Category).filter(_models.Category.id == film.id).first()
+    actors = db.query(_models.Actor).filter(_models.Actor.film_id == film.id).limit(6)
+    print(category.name)
 
-    return templates.TemplateResponse("templates-film-page/film_page.html", {"request": request, "categories": categories, "film": film})
+    if not film:
+        raise _fastapi.HTTPException(status_code=404, detail="Item not found")
+
+    film.film_img_url = film.film_img_url.replace("data_stuff/", "")
+
+    films_img_hrefs = []
+
+    for actor in actors:
+        actor.actor_img_url = actor.actor_img_url.replace("data_stuff/", "")
+
+    for i in range(1, 4):
+        films_img_hrefs.append(film.film_img_url + "/img" + str(i) + ".jpg")
+
+    return templates.TemplateResponse("templates-film-page/film_page.html", {"request": request, "categories": categories, "film": film, "category_name": category_name, "img_href": films_img_hrefs, "actors": actors})
 
 
 
-@app.get("/{category_name}")
-async def create_film(category_name: str, db: _orm.Session = _fastapi.Depends(get_db)):
+@app.get("/{category_name}", response_class= _fastapi.responses.HTMLResponse, tags=["category-list-page"])
+async def get_categories_list(request: _fastapi.Request, category_name: str, db: _orm.Session = _fastapi.Depends(get_db)):
+    #TODO :(
     cat = db.query(_models.Category).filter(_models.Category.name == category_name).first()
     if(cat == None):
-        return{"x": "X"}
+        raise _fastapi.HTTPException(status_code=404, detail="Item not found")
+    
+    categories = db.query(_models.Category).all()
 
     cat_id = cat.id
     print(cat_id)
     films_list = db.query(_models.Film).filter(_models.Film.category_id == cat_id).all()
-    print(films_list[0].description)
-    return {"list": films_list[0].description}
+    return templates.TemplateResponse("categories-page/categories.html", {"request": request, "categories": categories, "film_list": films_list, "category_name": category_name})
 
 
 @app.get("/categories", tags=["kategorie"])

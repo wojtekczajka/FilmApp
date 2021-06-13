@@ -90,6 +90,83 @@ footer {
       opacity: 1;
   }
 
+  #logo_outline
+{
+  height: 100px;
+  width: 220px;
+  border: solid grey 3px;
+  background-color: grey;
+  animation-name: example;
+  animation-duration: 4s;
+  border-radius: 12px;
+}
+
+#left
+{
+  width: 50%;
+  height: 100%;
+  background-color: white;
+  float: left;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+#right
+{
+  width: 50%;
+  height: 100%;
+  background-color: black;
+  float: left;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+#text_right
+{
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 80%;
+  height: 50px;
+  background-color: white;
+  text-align: center;
+  border-right: solid grey 2px;
+  border-bottom: solid grey 2px;
+  border-top: solid grey 2px;
+}
+
+#text_left
+{
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 80%;
+  height: 50px;
+  background-color: black;
+  margin-left: 20%;
+  text-align: center;
+  border-left: solid grey 2px;
+  border-bottom: solid grey 2px;
+  border-top: solid grey 2px;
+}
+
+#left_p
+{
+  font-family: 'Dancing Script', cursive;
+  font-size: 36px;
+  font-weight: bold;
+  text-decoration: overline;
+  text-shadow: 0.5px 0.5px red;
+}
+
+ #right_p
+ {
+   color: black;
+   font-family: 'Dancing Script', cursive;
+   font-size: 36px;
+   font-weight: bold;
+   text-decoration: overline;
+   text-shadow: 0.5px 0.5px green;
+ }
+
 
 
 

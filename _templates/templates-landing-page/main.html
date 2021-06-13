@@ -57,14 +57,6 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ my_item.name }}">{{ my_item.name }}</a>
                         {% endfor %}
-<!--                        <div class="dropdown-divider"></div>-->
-<!--                        <a class="dropdown-item" href="#">Filmy przygodowe</a>-->
-<!--                        <div class="dropdown-divider"></div>-->
-<!--                        <a class="dropdown-item" href="#">Filmy netflixowe</a>-->
-<!--                        <div class="dropdown-divider"></div>-->
-<!--                        <a class="dropdown-item" href="#">Filmy wojenne</a>-->
-<!--                        <div class="dropdown-divider"></div>-->
-<!--                        <a class="dropdown-item" href="#">Filmy kryminalne</a>-->
                     </div>
                     </li>
                 </ul>
@@ -175,7 +167,7 @@
                                 <div class="card-body">
                                 <h4 class="card-title text-center">{{ popular[0].title }}</h4>
                                 </div> 
-                                <a href="{{popular[0].category_id}}/{{ popular[0].title }}" class="link"><p class="watch">Obejrzyj</p></a>       
+                                <a href="{{ pop_href[0] }}" class="link"><p class="watch">Obejrzyj</p></a>
                             </div>
                         </div>
                         </div>    
@@ -187,7 +179,7 @@
                                 <div class="card-body">
                                 <h4 class="card-title text-center">{{ popular[1].title }}</h4>
                                 </div>
-                                <a href="{{popular[1].category_id}}/{{ popular[1].id }}" class="link"><p class="watch">Obejrzyj</p></a>
+                                <a href="{{ pop_href[1] }}" class="link"><p class="watch">Obejrzyj</p></a>
                             </div>
                     </div>
                     </div>
@@ -200,7 +192,7 @@
                                 <div class="card-body">
                                 <h4 class="card-title text-center">{{ popular[2].title }}</h4>
                                 </div>
-                                <a href="{{popular[2].category_id}}/{{ popular[2].id }}" class="link"><p class="watch">Obejrzyj</p></a>
+                                <a href="{{ pop_href[2] }}" class="link"><p class="watch">Obejrzyj</p></a>
                         </div>
                     </div>
                     </div>
@@ -221,7 +213,7 @@
                                 <div class="card-body">
                                 <h4 class="card-title text-center">{{ popular[3].title }}</h4>
                                 </div>
-                                <a href="{{popular[3].category_id}}/{{ popular[3].id }}" class="link"><p class="watch">Obejrzyj</p></a>
+                                <a href="{{ pop_href[3] }}" class="link"><p class="watch">Obejrzyj</p></a>
                         </div>
                     </div>
                     </div>
@@ -234,7 +226,7 @@
                                 <div class="card-body">
                                 <h4 class="card-title text-center">{{ popular[4].title }}</h4>
                                 </div>
-                                <a href="{{popular[4].category_id}}/{{ popular[4].id }}" class="link"><p class="watch">Obejrzyj</p></a>
+                                <a href="{{ pop_href[4] }}" class="link"><p class="watch">Obejrzyj</p></a>
                             </div>
                     </div>
                     </div>
@@ -247,7 +239,7 @@
                                 <div class="card-body">
                                 <h4 class="card-title text-center">{{ popular[5].title }}</h4>
                                 </div>
-                                <a href="{{popular[5].category_id}}/{{ popular[5].id }}" class="link"><p class="watch">Obejrzyj</p></a>
+                                <a href="{{ pop_href[5] }}" class="link"><p class="watch">Obejrzyj</p></a>
                         </div>
                     </div>
                     </div>
@@ -300,7 +292,7 @@
                             <div class="card-body">
                             <h4 class="card-title text-center">{{ latest[0].title }}</h4>
                             </div>
-                            <a href="#" class="link"><p class="watch">Obejrzyj</p></a>
+                            <a href="{{ latest_href[0] }}" class="link"><p class="watch">Obejrzyj</p></a>
                         </div>    
                     </div>
                     </div>
@@ -313,7 +305,7 @@
                             <div class="card-body">
                             <h4 class="card-title text-center">{{ latest[1].title }}</h4>
                             </div>
-                            <a href="#" class="link"><p class="watch">Obejrzyj</p></a>
+                            <a href="{{ latest_href[1] }}" class="link"><p class="watch">Obejrzyj</p></a>
                         </div>
                     </div>
                     </div>
@@ -326,7 +318,7 @@
                             <div class="card-body">
                             <h4 class="card-title text-center">{{ latest[2].title }}</h4>
                             </div>
-                            <a href="#" class="link"><p class="watch">Obejrzyj</p></a>
+                            <a href="{{ latest_href[2] }}" class="link"><p class="watch">Obejrzyj</p></a>
                         </div>
                     </div>
                     </div>
@@ -347,7 +339,7 @@
                             <div class="card-body">
                             <h4 class="card-title text-center">{{ latest[3].title }}</h4>
                             </div>
-                            <a href="#" class="link"><p class="watch">Obejrzyj</p></a>
+                            <a href="{{ latest_href[3] }}" class="link"><p class="watch">Obejrzyj</p></a>
                         </div>    
                     </div>
                     </div>
@@ -360,7 +352,7 @@
                             <div class="card-body">
                             <h4 class="card-title text-center">{{ latest[4].title }}</h4>
                             </div>
-                            <a href="#" class="link"><p class="watch">Obejrzyj</p></a>
+                            <a href="{{ latest_href[4] }}" class="link"><p class="watch">Obejrzyj</p></a>
                         </div>    
                     </div>
                     </div>
@@ -373,7 +365,7 @@
                             <div class="card-body">
                             <h4 class="card-title text-center">{{ latest[5].title }}</h4>
                             </div>
-                            <a href="#" class="link"><p class="watch">Obejrzyj</p></a>
+                            <a href="{{ latest_href[5] }}" class="link"><p class="watch">Obejrzyj</p></a>
                         </div>
                     </div>
                     </div>
