@@ -69,9 +69,7 @@
 
             <ul class="list-group list-group-flush">
                 {% for film in film_list %}
-                <li class="list-group-item", style="font-size: xx-large;">
-                    <a href="{{ category_name }}/{{ film.title }}">{{ film.title }}</a>
-                </li>
+                <a href="{{ category_name }}/{{ film.title }}" class="list-group-item list-group-item-action list-group-item-dark">{{ film.title }} </a>
                 {% endfor %}
             </ul>
 
