@@ -45,8 +45,8 @@ def random_movie_url(db: _orm.Session = _fastapi.Depends(get_db)):
 
 
 def replace_url(category_name: str, film_name: str):
-    category_name.replace("+", " ")
-    film_name.replace("+", " ")
+    category_name = category_name.replace("+", " ")
+    film_name = film_name.replace("+", " ")
 
 
 def append_img_hrefs(film: _models.Film):

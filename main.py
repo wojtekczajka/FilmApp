@@ -32,6 +32,7 @@ def get_db():
         db.close()
 
 
+
 @app.get("/", response_class=_fastapi.responses.HTMLResponse, tags=["landing-page"])
 async def read_item(request: _fastapi.Request, db: _orm.Session = _fastapi.Depends(get_db)):
 
@@ -39,9 +40,13 @@ async def read_item(request: _fastapi.Request, db: _orm.Session = _fastapi.Depen
     popular =  db.query(_models.Film).order_by(_models.Film.rating.desc()).limit(6)
     latest = db.query(_models.Film).order_by(_models.Film.id.desc()).limit(6)
 
-    latest_hrefs = _crud.append_latest_film(latest, db)
-    pop_hrefs = _crud.append_popular_films(popular, db)
+    latest_hrefs = []
+    for x in latest:
+        x.film_img_url = x.film_img_url.replace("data_stuff/", "")
+        title = db.query(_models.Category).filter(_models.Category.id == x.category_id).first()
+        latest_hrefs.append(title.name + "/" + x.title)
 
+    pop_hrefs = _crud.append_popular_films(popular, db)
     return templates.TemplateResponse("templates-landing-page/main.html", {"request": request, "categories": categories,
                                                                            "popular": popular, "pop_href": pop_hrefs,
                                                                            "latest_href": latest_hrefs, "latest": latest})
@@ -59,7 +64,8 @@ async def rand(db: _orm.Session = _fastapi.Depends(get_db)):
 
 @app.get("/{category_name}/{film_name}", response_class=_fastapi.responses.HTMLResponse, tags = ["film-page"])
 async def rand(request: _fastapi.Request, category_name: str, film_name: str, db: _orm.Session = _fastapi.Depends(get_db)):
-    _crud.replace_url(category_name, film_name)
+    category_name = category_name.replace("+", " ")
+    film_name = film_name.replace("+", " ")
     categories = db.query(_models.Category).all()
     film = db.query(_models.Film).filter(_models.Film.title == film_name).first()
     actors = db.query(_models.Actor).filter(_models.Actor.film_id == film.id).limit(6)
