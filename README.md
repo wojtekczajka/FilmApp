@@ -4,7 +4,7 @@
 ## Bootstrap
 
 # to run app:
-```terminal
+```shell
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
