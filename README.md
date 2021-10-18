@@ -3,8 +3,8 @@
 ## database (SQLite)
 ## Bootstrap
 
-# to run app:
-```
+# to run app in bash:
+```bash
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
